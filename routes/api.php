@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\BookController;
+use App\Http\Controllers\Api\V1\RentalController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -21,6 +23,11 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', LoginController::class);
     Route::post('/logout', LogoutController::class)->middleware('auth:sanctum');
     Route::post('/register', RegisterController::class);
+});
+
+Route::prefix('v1')->group(function () {
+    Route::apiResource('/books', BookController::class);
+    Route::apiResource('/rentals', RentalController::class);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
